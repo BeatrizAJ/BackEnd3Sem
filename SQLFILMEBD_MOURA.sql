@@ -1,0 +1,24 @@
+CREATE DATABASE FilmesBD_Moura;
+GO
+
+USE FilmesBD_Moura;
+GO 
+
+CREATE TABLE Genero( 
+IdGenero VARCHAR(40)  PRIMARY KEY NOT NULL,
+Nome     VARCHAR(100)            NOT NULL
+);
+
+CREATE TABLE Filme(
+IdFilme  VARCHAR(40)  PRIMARY KEY NOT NULL,
+Titulo   VARCHAR(100)             NOT NULL,
+Imagem   VARCHAR(100),
+IdGenero	VARCHAR(40)		FOREIGN KEY		REFERENCES	Genero(IdGenero)
+);
+
+CREATE TABLE	Usuario(
+IdUsuario		VARCHAR		PRIMARY KEY		NOT NULL,
+Nome			VARCHAR(100)				NOT NULL,
+Senha			VARCHAR(60)					NOT NULL,
+Email			VARCHAR(256)	UNIQUE		NOT NULL
+);
