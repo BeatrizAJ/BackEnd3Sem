@@ -19,7 +19,7 @@ builder.Services.AddControllers();
 
 var app = builder.Build();
 
-app.MapGet("/", () => "Hello World!");
+
 // adiciona mapemaneto nos controlers
 app.MapControllers();
-app.Run();
+app.Run();   

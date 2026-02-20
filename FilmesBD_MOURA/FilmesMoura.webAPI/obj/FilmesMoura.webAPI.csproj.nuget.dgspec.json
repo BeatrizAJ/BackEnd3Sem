@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\50765501899\\Desktop\\FilmesBD_MOURA\\FilmesMoura.webAPI\\FilmesMoura.webAPI.csproj": {}
+    "C:\\Users\\50765501899\\Desktop\\BackEnd3Sem\\FilmesBD_MOURA\\FilmesMoura.webAPI\\FilmesMoura.webAPI.csproj": {}
   },
   "projects": {
-    "C:\\Users\\50765501899\\Desktop\\FilmesBD_MOURA\\FilmesMoura.webAPI\\FilmesMoura.webAPI.csproj": {
+    "C:\\Users\\50765501899\\Desktop\\BackEnd3Sem\\FilmesBD_MOURA\\FilmesMoura.webAPI\\FilmesMoura.webAPI.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\50765501899\\Desktop\\FilmesBD_MOURA\\FilmesMoura.webAPI\\FilmesMoura.webAPI.csproj",
+        "projectUniqueName": "C:\\Users\\50765501899\\Desktop\\BackEnd3Sem\\FilmesBD_MOURA\\FilmesMoura.webAPI\\FilmesMoura.webAPI.csproj",
         "projectName": "FilmesMoura.webAPI",
-        "projectPath": "C:\\Users\\50765501899\\Desktop\\FilmesBD_MOURA\\FilmesMoura.webAPI\\FilmesMoura.webAPI.csproj",
+        "projectPath": "C:\\Users\\50765501899\\Desktop\\BackEnd3Sem\\FilmesBD_MOURA\\FilmesMoura.webAPI\\FilmesMoura.webAPI.csproj",
         "packagesPath": "C:\\Users\\50765501899\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\50765501899\\Desktop\\FilmesBD_MOURA\\FilmesMoura.webAPI\\obj\\",
+        "outputPath": "C:\\Users\\50765501899\\Desktop\\BackEnd3Sem\\FilmesBD_MOURA\\FilmesMoura.webAPI\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"

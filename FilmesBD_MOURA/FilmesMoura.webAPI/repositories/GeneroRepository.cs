@@ -24,7 +24,15 @@ namespace FilmesMoura.webAPI.repositories
 
         public Genero BuscarPorId(Guid id)
         {
-            throw new NotImplementedException();
+            try
+            {
+                Genero generoBuscado = _context.Generos.Find(id.ToString())!;
+                return generoBuscado;
+            }
+            catch (Exception)
+            {
+                throw;
+            }
         }
 
         public void Cadastrar(Genero novoGenero)
@@ -32,6 +40,8 @@ namespace FilmesMoura.webAPI.repositories
 
             try
             {
+                novoGenero.IdGenero = Guid.NewGuid().ToString();
+
                 _context.Generos.Add(novoGenero);
 
                 _context.SaveChanges();
@@ -52,7 +62,16 @@ namespace FilmesMoura.webAPI.repositories
 
         public List<Genero> Listar()
         {
-            throw new NotImplementedException();
+            try
+            {
+                List<Genero> listaGenero = _context.Generos.ToList();
+
+                return listaGenero; 
+            }
+            catch (Exception e)
+            {
+                throw;
+            }
         }
     }
 }
