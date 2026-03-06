@@ -42,7 +42,7 @@ public partial class FilmeContext : DbContext
 
         modelBuilder.Entity<Usuario>(entity =>
         {
-            entity.HasKey(e => e.IdUsuario).HasName("PK__Usuario__5B65BF97E2A0F80B");
+            entity.HasKey(e => e.IdUsuario).HasName("PK__Usuario__5B65BF971E1E530C");
         });
 
         OnModelCreatingPartial(modelBuilder);

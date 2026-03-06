@@ -25,7 +25,7 @@ namespace FilmesMoura.webAPI.Controllers
                 return Ok(_generoRepository.BuscarPorId(id));
             }
             catch (Exception ex)
-            { 
+            {
                 return BadRequest(ex.Message);
             }
         }
@@ -40,8 +40,8 @@ namespace FilmesMoura.webAPI.Controllers
                 return Ok(_generoRepository.Listar());
             }
             catch (Exception e)
-            { 
-            return BadRequest(e.Message);
+            {
+                return BadRequest(e.Message);
             }
         }
 
@@ -53,13 +53,73 @@ namespace FilmesMoura.webAPI.Controllers
             {
                 _generoRepository.Cadastrar(novoGenero);
                 return StatusCode(201);
-             }
-            catch (Exception ex) 
+            }
+            catch (Exception ex)
             {
                 return BadRequest(ex.Message);
             }
-        
+
+        }
+
+
+
+
+        [HttpPut("{id}")]
+
+        public IActionResult Put(Guid id, Genero generoAtualizado)
+        {
+            try
+            {
+                _generoRepository.AtualizarIdUrl(id, generoAtualizado);
+                return NoContent();
+            }
+            catch (Exception e)
+            {
+                return BadRequest(e.Message);
+            }
+
+
+
+
+        }
+
+
+
+
+        [HttpPut]
+        public IActionResult PutBody(Genero generoAtualizado)
+        {
+            try
+            {
+                _generoRepository.AtualizarIdCorpo(generoAtualizado);
+
+                return NoContent();
+            }
+            catch (Exception e)
+            {
+
+                return BadRequest(e.Message);
+            }
+
+        }
+    
+
+
+    [HttpDelete("{id}")]
+        public IActionResult Delete(Guid id)
+        {
+            try
+            {
+                _generoRepository.Deletar(id);
+                return NoContent();
+
+            }
+            catch (Exception e)
+            {
+                return BadRequest(e.Message);
+            }
         }
 
     }
+
 }

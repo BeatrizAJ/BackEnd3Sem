@@ -14,12 +14,47 @@ namespace FilmesMoura.webAPI.repositories
 
         public void AtualizarIdCorpo(Genero generoAtualizado)
         {
-            throw new NotImplementedException();
+            try
+            {
+                Genero generoBuscado = _context.Generos.Find(generoAtualizado.IdGenero)!;
+
+                if (generoBuscado != null)
+                {
+                    generoBuscado.Nome = generoAtualizado.Nome;
+                }
+
+                _context.Generos.Update(generoBuscado!);
+                _context.SaveChanges();
+            }
+
+            catch (Exception)
+            {
+
+                throw;
+            }
         }
 
-        public void AtualizarIdUrl(Guid id, Genero genero)
+        public void AtualizarIdUrl(Guid id, Genero generoAtualizado)
         {
-            throw new NotImplementedException();
+            try
+            {
+                Genero generoBuscado = _context.Generos.Find(id.ToString()!);
+
+
+                if (generoBuscado != null)
+                {
+                    generoBuscado.Nome = generoAtualizado.Nome;
+                }
+
+                _context.Generos.Update(generoBuscado!);
+                _context.SaveChanges();
+
+            }
+            catch (Exception ex)
+            {
+                throw;
+            } 
+            
         }
 
         public Genero BuscarPorId(Guid id)
@@ -57,7 +92,23 @@ namespace FilmesMoura.webAPI.repositories
 
         public void Deletar(Guid id)
         {
-            throw new NotImplementedException();
+            try
+            {
+                Genero generoBuscado = _context.Generos.Find(id.ToString())!;
+
+                if (generoBuscado != null)
+                {
+                    _context.Generos.Remove(generoBuscado);
+                }
+               
+                _context.SaveChanges();
+
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
         }
 
         public List<Genero> Listar()
@@ -74,4 +125,6 @@ namespace FilmesMoura.webAPI.repositories
             }
         }
     }
+
+
 }

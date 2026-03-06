@@ -10,5 +10,6 @@ namespace FilmesMoura.webAPI.Interfaces
         void AtualizarIdUrl(Guid id, Filme FIlmeAtualizado);
         void Deletar(Guid id);
         Filme BuscarPorId(Guid id);
+       
     }
 }

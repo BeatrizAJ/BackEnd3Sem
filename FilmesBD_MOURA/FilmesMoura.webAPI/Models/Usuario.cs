@@ -7,11 +7,11 @@ using Microsoft.EntityFrameworkCore;
 namespace FilmesMoura.webAPI.Models;
 
 [Table("Usuario")]
-[Index("Email", Name = "UQ__Usuario__A9D105344DFC202D", IsUnique = true)]
+[Index("Email", Name = "UQ__Usuario__A9D10534C67A725B", IsUnique = true)]
 public partial class Usuario
 {
     [Key]
-    [StringLength(1)]
+    [StringLength(40)]
     [Unicode(false)]
     public string IdUsuario { get; set; } = null!;
 
