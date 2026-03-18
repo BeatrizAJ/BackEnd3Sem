@@ -10,6 +10,12 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddDbContext<EventContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
+builder.Services.AddScoped<ITipoUsuarioRepository, TipoUsuarioRepository>();
+builder.Services.AddScoped<IInstituicaoRepository, InstituicaoRepository>();
+builder.Services.AddScoped<ITipoEventoRepository, TipoEventoRepository>();
+builder.Services.AddScoped<IUsuarioRepository, UsuarioRepository>();
+
+
 builder.Services.AddScoped<ITipoEventoRepository, TipoEventoRepository>();
 
 builder.Services.AddEndpointsApiExplorer();

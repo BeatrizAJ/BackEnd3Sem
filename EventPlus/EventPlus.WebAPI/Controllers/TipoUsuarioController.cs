@@ -1,7 +1,6 @@
 ﻿using EventPlus.WebAPI.DTO;
 using EventPlus.WebAPI.Interfaces;
 using EventPlus.WebAPI.Models;
-using EventPlus.WebAPI.Repositories;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -9,31 +8,116 @@ namespace EventPlus.WebAPI.Controllers;
 
 [Route("api/[controller]")]
 [ApiController]
-public class TipoUsuarioController : ITipoUsuarioRepository
+public class TipoUsuarioController : ControllerBase
 {
-   
-    public void Atualizar(Guid id, Models.TipoUsuario tipoUsuario)
+    private readonly ITipoUsuarioRepository _tipoUsuarioRepository;
+
+    public TipoUsuarioController(ITipoUsuarioRepository tipoUsuarioRepository)
     {
-        throw new NotImplementedException();
+        _tipoUsuarioRepository = tipoUsuarioRepository;
     }
 
-    public Models.TipoUsuario BuscarPorId(Guid id)
+    /// <summary>
+    /// Endpoint da API, que faz a chamada para o metodo de lista os tipos de usu�rio
+    /// </summary>
+    /// <returns>Status code 200 e a lista de tipos de usu�rio</returns>
+    [HttpGet]
+    public IActionResult Listar()
     {
-        throw new NotImplementedException();
+        try
+        {
+            return Ok(_tipoUsuarioRepository);
+        }
+        catch (Exception e)
+        {
+            return BadRequest(e.Message);
+        }
     }
 
-    public void Cadastrar(Models.TipoUsuario tipoUsuario)
+    /// <summary>
+    /// EndPoint da API, que faz a chamada para o metodo de buscar um tipo de usuario especefico
+    /// </summary>
+    /// <param name="id">id do tipo de ususario buscado</param>
+    /// <returns>Status code 200 e o tipo de usuario</returns>
+    [HttpGet("{id}")]
+    public IActionResult BuscarPorId(Guid id)
     {
-        throw new NotImplementedException();
+        try
+        {
+            return Ok(_tipoUsuarioRepository.BuscarPorId(id));
+        }
+        catch (Exception e)
+        {
+            return BadRequest(e.Message);
+        }
     }
 
-    public void Deletar(Guid id)
+    /// <summary>
+    /// Endpoint da API, que faz a chamada para o metodo de cadastrar um novo tipo de usuario
+    /// </summary>
+    /// <param name="tipoUsuario">Tipo de usuario a ser cadastrado</param>
+    /// <returns>Status code 201 e o tipo de usuario cadastrado</returns>
+    [HttpPost]
+    public IActionResult Cadastrar(TipoUsuarioDTO tipoUsuario)
     {
-        throw new NotImplementedException();
+        try
+        {
+            var novoTipoUsuario = new TipoUsuario
+            {
+                Titulo = tipoUsuario.Titulo!
+            };
+
+            _tipoUsuarioRepository.Cadastrar(novoTipoUsuario);
+            return StatusCode(201, novoTipoUsuario);
+        }
+        catch (Exception e)
+        {
+            return BadRequest(e.Message);
+        }
+    }
+    /// <summary>
+    /// Endpoint da API, que faz a chamada para o metodo de atualizar um tipo de usuario
+    /// </summary>
+    /// <param name="id">Id do tipo usuario a ser atualizado</param>
+    /// <param name="tipoUsuario">Tipo usuario com os dados atualizados</param>
+    /// <returns>Status code 204 e o tipo de evento atualizado</returns>
+    [HttpPut("{id}")]
+    public IActionResult Atualizar(Guid id, TipoUsuario tipoUsuario)
+    {
+        try
+        {
+            var tipoUsuarioAtualizado = new TipoUsuario
+            {
+                Titulo = tipoUsuario.Titulo!
+            };
+
+            _tipoUsuarioRepository.Atualizar(id, tipoUsuarioAtualizado);
+            return StatusCode(204, tipoUsuarioAtualizado);
+        }
+        catch (Exception e)
+        {
+            return BadRequest(e.Message);
+        }
     }
 
-    public List<Models.TipoUsuario> List(Guid IdTipoUsuario)
+    /// <summary>
+    /// Endpoint da API, que faz a chamada para o metodo de deletar um tipo de usuario
+    /// </summary>
+    /// <param name="id">Id do tipo usu�rio a ser deletado</param>
+    /// <returns>Status code 204</returns>
+    [HttpDelete("{id}")]
+    public IActionResult Deletar(Guid id)
     {
-        throw new NotImplementedException();
+        try
+        {
+            _tipoUsuarioRepository.Deletar(id);
+            return NoContent();
+        }
+        catch (Exception e)
+        {
+            return BadRequest(e.Message);
+        }
     }
+
+
 }

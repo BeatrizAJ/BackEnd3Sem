@@ -102,7 +102,6 @@ public class TipoEventoController : ControllerBase
         }
         catch (Exception erro)
         {
-
             return BadRequest(erro.Message);
         }
     }
@@ -123,7 +122,6 @@ public class TipoEventoController : ControllerBase
         }
         catch (Exception erro)
         {
-
             return BadRequest(erro.Message);
         }
     }

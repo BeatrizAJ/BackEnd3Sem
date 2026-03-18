@@ -3617,11 +3617,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\50765501899\\Desktop\\EventPlus\\EventPlus.WebAPI\\EventPlus.WebAPI.csproj",
+      "projectUniqueName": "C:\\Users\\50765501899\\Desktop\\BackEnd3Sem\\EventPlus\\EventPlus.WebAPI\\EventPlus.WebAPI.csproj",
       "projectName": "EventPlus.WebAPI",
-      "projectPath": "C:\\Users\\50765501899\\Desktop\\EventPlus\\EventPlus.WebAPI\\EventPlus.WebAPI.csproj",
+      "projectPath": "C:\\Users\\50765501899\\Desktop\\BackEnd3Sem\\EventPlus\\EventPlus.WebAPI\\EventPlus.WebAPI.csproj",
       "packagesPath": "C:\\Users\\50765501899\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\50765501899\\Desktop\\EventPlus\\EventPlus.WebAPI\\obj\\",
+      "outputPath": "C:\\Users\\50765501899\\Desktop\\BackEnd3Sem\\EventPlus\\EventPlus.WebAPI\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
