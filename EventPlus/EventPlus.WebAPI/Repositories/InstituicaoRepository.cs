@@ -50,11 +50,6 @@ namespace EventPlus.WebAPI.Repositories
             }
         }
 
-        public List<Instituicao> List(Guid IdInstituicao)
-        {
-            throw new NotImplementedException();
-        }
-
         public List<Instituicao> Listar() // Removido parâmetro desnecessário para listagem geral
         {
             return _context.Instituicaos.OrderBy(instituicao => instituicao.NomeFantasia).ToList();

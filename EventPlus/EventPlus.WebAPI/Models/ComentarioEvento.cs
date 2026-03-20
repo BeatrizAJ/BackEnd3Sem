@@ -18,12 +18,12 @@ public partial class ComentarioEvento
     [StringLength(200)]
     public string Descricao { get; set; } = null!;
 
-    public bool Exibe { get; set; }
+    public bool ExibeComentario { get; set; } // 👈 ALTERADO AQUI
 
     public Guid? IdEvento { get; set; }
 
     public Guid? IdUsuario { get; set; }
-        
+
     [ForeignKey("IdEvento")]
     [InverseProperty("ComentarioEventos")]
     public virtual Evento? IdEventoNavigation { get; set; }
