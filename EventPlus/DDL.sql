@@ -4,6 +4,8 @@ GO
 USE EventPlus_Moura;
 GO
 
+select * from Evento;
+
 CREATE TABLE TipoUsuario(
 IdTipoUsuario UNIQUEIDENTIFIER PRIMARY KEY DEFAULT ((NEWID())),
 Titulo NVARCHAR(100)       NOT NULL 
@@ -60,3 +62,6 @@ IdEvento UNIQUEIDENTIFIER FOREIGN KEY REFERENCES Evento(IdEvento),
 IdUsuario UNIQUEIDENTIFIER FOREIGN KEY REFERENCES Usuario(IdUsuario)
 );
 GO
+
+INSERT INTO ComentarioEvento (DataComentarioEvento, Descricao, Exibe, IdEvento, IdUsuario) VALUES
+('2026/04/28', 'Aniversario', 'true', '')
