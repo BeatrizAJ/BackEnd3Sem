@@ -1,93 +1,128 @@
-using Azure.AI.ContentSafety;
 using EventPlus.WebAPI.BdContextEvent;
 using EventPlus.WebAPI.Interfaces;
 using EventPlus.WebAPI.Repositories;
 using EventPlus.WebAPI.Repositorios;
+using EventPlus.WebAPI.DTO;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
+using Microsoft.EntityFrameworkCore.Internal;
+using Microsoft.Extensions.Options;
 using Microsoft.OpenApi;
+using System.IdentityModel.Tokens.Jwt;
+using System.Reflection.Metadata;
+using System.Security.Claims;
+using Azure.AI.ContentSafety;
+using EventPlus.WebAPI.Repositories;
+using EventPlus.WebApi.Repositories;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
+
+//Configurar o contexto do banco de dados
 
 builder.Services.AddDbContext<EventContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+
+//2. Registrar as repositories (injecao de dependencia)
+builder.Services.AddScoped<ITipoEventoRepository, TipoEventoRepository>();
 builder.Services.AddScoped<ITipoUsuarioRepository, TipoUsuarioRepository>();
 builder.Services.AddScoped<IInstituicaoRepository, InstituicaoRepository>();
-builder.Services.AddScoped<ITipoEventoRepository, TipoEventoRepository>();
 builder.Services.AddScoped<IUsuarioRepository, UsuarioRepository>();
 builder.Services.AddScoped<IEventoRepository, EventoRepository>();
+builder.Services.AddScoped<IPresencaRepository, PresencaRepository>();
+builder.Services.AddScoped<IComentarioEventoRepository, ComentarioEventoRepository>();
 
+////Configurando o azure content safety
+//var endpoint = "https://azure.com";
+//var apikey = "";
 
-//configuracao do Azure Content Safety
-//var endpoint = "https://moderatorservice-beatriz.cognitiveservices.azure.com/";
-//var apiKey = "
-//var client = new ContentSafetyClient(new Uri(endpoint), new Azure.AzureKeyCredential(apiKey));
-    //builder.Services.AddSingleton(client);
+//var client = new ContentSafetyClient(new Uri(endpoint), new Azure.AzureKeyCredential(apikey));
+//builder.Services.AddSingleton(client);
 
-
-
-builder.Services.AddSwaggerGen(options =>
+//adiciona o Swagger
+builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddSwaggerGen(Options =>
 {
-    options.SwaggerDoc("v1", new Microsoft.OpenApi.OpenApiInfo
+    Options.SwaggerDoc("v1", new OpenApiInfo
     {
         Version = "v1",
-        Title = "API de eventos",
-        Description = "Aplicacao para gerenciamento de eventos",
-        TermsOfService = new Uri("https://example.com/terms"),
-        Contact = new OpenApiContact 
+        Title = "API de Eventos",
+        Description = "API para gerenciamento de eventos",
+        TermsOfService = new Uri("https://drive.google.com/file/d/1VWD-PMQST_ByhAspSdeVlJkB/view?usp=sharing"),
+        Contact = new OpenApiContact
         {
-        Name = "Beatriz Andrade",
-        Url = new Uri("https://www.linkedin.com/in/marcaumdev")
+            Name = "Bia Andrade",
+            Url = new Uri("https://github.com/BeatrizAndrade")
         },
         License = new OpenApiLicense
         {
-        Name = "Licensa de Exemplo",
-        Url = new Uri("https://example.com/terms"),
+            Name = "Licensa de exemplo",
+            Url = new Uri("https://lh3.googleusercontent.com/pw/AP1GczN5VJ3-9lnQ5Sb-iJXUsZCX8He6WZBftqZjau3bjEzOP9Qe2HhRvEQRltzjxVZWntGCMnMuMDnNyjlDCavcD1KaK3nsIk0ZQQeMMWmgNiJts0Mo3q8fJe4--G0xsu0Tg0-pwUL4T=w408-h408-s-no?authuser=0")
         }
     });
-
-    options.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
+    Options.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
     {
         Name = "Authorization",
         Type = SecuritySchemeType.Http,
-        Scheme = "Bearer",
+        Scheme = "bearer",
         BearerFormat = "JWT",
         In = ParameterLocation.Header,
-        Description = "Insira o token JWT: "
+        Description = "Bota o token ai j�o E TEM Q SER JWT:"
     });
-    options.AddSecurityRequirement(document => new OpenApiSecurityRequirement
+    Options.AddSecurityRequirement(document => new OpenApiSecurityRequirement
     {
-        [new OpenApiSecuritySchemeReference("Baerer", document)] = Array.Empty<string>().ToList()
+        [new OpenApiSecuritySchemeReference("Bearer", document)] = Array.Empty<string>().ToList()
     });
 });
 
 
-
 builder.Services.AddControllers();
+
+builder.Services.AddAuthentication(options =>
+{
+    options.DefaultChallengeScheme = "JwtBearer";
+    options.DefaultAuthenticateScheme = "JwtBearer";
+})
+    .AddJwtBearer("JwtBearer", options =>
+    {
+        options.TokenValidationParameters = new Microsoft.IdentityModel.Tokens.TokenValidationParameters
+        {
+            ValidateIssuer = true,// Valida o emissor do token
+            ValidateAudience = true, // Valida o destinatário do token
+            ValidateLifetime = true, // Valida se o token expirou
+            ValidateIssuerSigningKey = true, // Valida a chave de assinatura do token
+            ValidIssuer = "api_events", // Emissor do token
+            ValidAudience = "api_events", // Destinatário do token
+            IssuerSigningKey = new SymmetricSecurityKey(System.Text.Encoding.UTF8.GetBytes("Filmes-Chave-Autenticacao-webapi-dev")),// Chave de assinatura do token
+            ClockSkew = TimeSpan.Zero // Elimina a tolerância de expiração do token
+
+        };
+    });
+
 // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
 builder.Services.AddOpenApi();
 
 var app = builder.Build();
 
+if (app.Environment.IsDevelopment())
+{
+    app.MapOpenApi();
+    app.UseSwagger(options => { });
+    app.UseSwaggerUI(options =>
+    {
+        options.SwaggerEndpoint("/swagger/v1/swagger.json", "API de Eventos v1");
+        options.RoutePrefix = string.Empty;
+    });
+}
+
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
     app.MapOpenApi();
-
-    app.UseSwagger(options => { });
-
-    app.UseSwaggerUI(options =>
-    {
-        options.SwaggerEndpoint("/swagger/v1/swagger.json", "v1");
-        options.RoutePrefix = string.Empty;
-    });
 }
 
 app.UseHttpsRedirection();
 
 app.UseAuthorization();
-
-app.UseAuthentication();
 
 app.MapControllers();
 

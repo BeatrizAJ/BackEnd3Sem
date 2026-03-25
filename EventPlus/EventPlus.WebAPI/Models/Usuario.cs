@@ -8,7 +8,7 @@ using System.Text.Json.Serialization;
 namespace EventPlus.WebAPI.Models;
 
 [Table("Usuario")]
-[Index("Email", Name = "UQ__Usuario__A9D1053442396573", IsUnique = true)]
+[Index("Email", Name = "UQ__Usuario__A9D1053468187A70", IsUnique = true)]
 public partial class Usuario
 {
     [Key]

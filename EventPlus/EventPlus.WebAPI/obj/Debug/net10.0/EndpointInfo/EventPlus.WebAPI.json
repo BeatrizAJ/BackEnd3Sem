@@ -1,104 +1,20 @@
 {
   "openapi": "3.0.4",
   "info": {
-    "title": "API de eventos",
-    "description": "Aplicacao para gerenciamento de eventos",
-    "termsOfService": "https://example.com/terms",
+    "title": "API de Eventos",
+    "description": "API para gerenciamento de eventos",
+    "termsOfService": "https://drive.google.com/file/d/1VWD-PMIfm1fPuQST_ByhAspS7deVlJkB/view?usp=sharing",
     "contact": {
-      "name": "Beatriz Andrade",
-      "url": "https://www.linkedin.com/in/marcaumdev"
+      "name": "Ariel",
+      "url": "https://github.com/ArielPinheiro"
     },
     "license": {
-      "name": "Licensa de Exemplo",
-      "url": "https://example.com/terms"
+      "name": "Licensa de exemplo",
+      "url": "https://lh3.googleusercontent.com/pw/AP1GczN5VJ3-9BbzTAsOdd6g4qgUlnQ5Sb-iJXUsZCX8He6WZBftqZjau3bjEzOP9Qe2HhRvEQRltzjxVZWntGCMnMuMDnNyjlDCavcD1KaK3nsIk0ZQQeMMWmgNiJts0Mo3q8fJe4--G0xsu0Tg0-pwUL4T=w408-h408-s-no?authuser=0"
     },
     "version": "v1"
   },
   "paths": {
-    "/api/ComentarioEvento/ListarTodos{id}": {
-      "get": {
-        "tags": [
-          "ComentarioEvento"
-        ],
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "format": "uuid"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK"
-          }
-        }
-      }
-    },
-    "/api/ComentarioEvento/ListarSomenteExibe{id}": {
-      "get": {
-        "tags": [
-          "ComentarioEvento"
-        ],
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "format": "uuid"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK"
-          }
-        }
-      }
-    },
-    "/api/ComentarioEvento/BuscarPorIdUsuario{id}": {
-      "get": {
-        "tags": [
-          "ComentarioEvento"
-        ],
-        "parameters": [
-          {
-            "name": "idUsuario",
-            "in": "query",
-            "schema": {
-              "type": "string",
-              "format": "uuid"
-            }
-          },
-          {
-            "name": "idEvento",
-            "in": "query",
-            "schema": {
-              "type": "string",
-              "format": "uuid"
-            }
-          },
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK"
-          }
-        }
-      }
-    },
     "/api/ComentarioEvento": {
       "post": {
         "tags": [
@@ -128,6 +44,60 @@
             "description": "OK"
           }
         }
+      },
+      "get": {
+        "tags": [
+          "ComentarioEvento"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/ComentarioEvento/BuscarPorIdDeUsuario": {
+      "get": {
+        "tags": [
+          "ComentarioEvento"
+        ],
+        "parameters": [
+          {
+            "name": "idUsuario",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/ComentarioEvento/ListarSomenteExibe": {
+      "get": {
+        "tags": [
+          "ComentarioEvento"
+        ],
+        "parameters": [
+          {
+            "name": "IdEvento",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
       }
     },
     "/api/ComentarioEvento/{id}": {
@@ -145,6 +115,41 @@
               "format": "uuid"
             }
           }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/Evento/Usuario/{idUsuario}": {
+      "get": {
+        "tags": [
+          "Evento"
+        ],
+        "parameters": [
+          {
+            "name": "idUsuario",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/Evento/ListarProximos": {
+      "get": {
+        "tags": [
+          "Evento"
         ],
         "responses": {
           "200": {
@@ -192,18 +197,15 @@
             "description": "OK"
           }
         }
-      }
-    },
-    "/api/Evento/Usuario/{idUsuario}": {
-      "get": {
+      },
+      "delete": {
         "tags": [
           "Evento"
         ],
         "parameters": [
           {
-            "name": "idUsuario",
-            "in": "path",
-            "required": true,
+            "name": "id",
+            "in": "query",
             "schema": {
               "type": "string",
               "format": "uuid"
@@ -215,21 +217,7 @@
             "description": "OK"
           }
         }
-      }
-    },
-    "/api/Evento/ListarProximos": {
-      "get": {
-        "tags": [
-          "Evento"
-        ],
-        "responses": {
-          "200": {
-            "description": "OK"
-          }
-        }
-      }
-    },
-    "/api/Evento/{id}": {
+      },
       "put": {
         "tags": [
           "Evento"
@@ -237,8 +225,7 @@
         "parameters": [
           {
             "name": "id",
-            "in": "path",
-            "required": true,
+            "in": "query",
             "schema": {
               "type": "string",
               "format": "uuid"
@@ -269,8 +256,10 @@
             "description": "OK"
           }
         }
-      },
-      "delete": {
+      }
+    },
+    "/api/Evento/{id}": {
+      "get": {
         "tags": [
           "Evento"
         ],
@@ -374,17 +363,17 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/Instituicao"
+                "$ref": "#/components/schemas/InstituicaoDTO"
               }
             },
             "text/json": {
               "schema": {
-                "$ref": "#/components/schemas/Instituicao"
+                "$ref": "#/components/schemas/InstituicaoDTO"
               }
             },
             "application/*+json": {
               "schema": {
-                "$ref": "#/components/schemas/Instituicao"
+                "$ref": "#/components/schemas/InstituicaoDTO"
               }
             }
           }
@@ -448,14 +437,14 @@
         }
       }
     },
-    "/api/Presenca/ListarMinhas/{IdUsuario}": {
+    "/api/Presenca/ListarMinhas/{idUsuario}": {
       "get": {
         "tags": [
           "Presenca"
         ],
         "parameters": [
           {
-            "name": "IdUsuario",
+            "name": "idUsuario",
             "in": "path",
             "required": true,
             "schema": {
@@ -510,29 +499,6 @@
             "description": "OK"
           }
         }
-      }
-    },
-    "/api/Presenca/{id}": {
-      "get": {
-        "tags": [
-          "Presenca"
-        ],
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "format": "uuid"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK"
-          }
-        }
       },
       "put": {
         "tags": [
@@ -541,8 +507,46 @@
         "parameters": [
           {
             "name": "id",
-            "in": "path",
-            "required": true,
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Presenca"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Presenca"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/Presenca"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Presenca"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "query",
             "schema": {
               "type": "string",
               "format": "uuid"
@@ -554,8 +558,10 @@
             "description": "OK"
           }
         }
-      },
-      "delete": {
+      }
+    },
+    "/api/Presenca/{id}": {
+      "get": {
         "tags": [
           "Presenca"
         ],
@@ -784,17 +790,17 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/TipoUsuario"
+                "$ref": "#/components/schemas/TipoUsuarioDTO"
               }
             },
             "text/json": {
               "schema": {
-                "$ref": "#/components/schemas/TipoUsuario"
+                "$ref": "#/components/schemas/TipoUsuarioDTO"
               }
             },
             "application/*+json": {
               "schema": {
-                "$ref": "#/components/schemas/TipoUsuario"
+                "$ref": "#/components/schemas/TipoUsuarioDTO"
               }
             }
           }
@@ -851,16 +857,6 @@
       }
     },
     "/api/Usuario": {
-      "get": {
-        "tags": [
-          "Usuario"
-        ],
-        "responses": {
-          "200": {
-            "description": "OK"
-          }
-        }
-      },
       "post": {
         "tags": [
           "Usuario"
@@ -889,6 +885,16 @@
             "description": "OK"
           }
         }
+      },
+      "get": {
+        "tags": [
+          "Usuario"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
       }
     }
   },
@@ -912,27 +918,66 @@
         },
         "additionalProperties": false
       },
-      "EventoDTO": {
-        "required": [
-          "dataEvento",
-          "descricao",
-          "idInstituicao",
-          "idTipoEvento",
-          "nome"
-        ],
+      "Evento": {
         "type": "object",
         "properties": {
+          "idEvento": {
+            "type": "string",
+            "format": "uuid"
+          },
           "nome": {
-            "minLength": 1,
-            "type": "string"
+            "maxLength": 100,
+            "minLength": 0,
+            "type": "string",
+            "nullable": true
           },
           "dataEvento": {
             "type": "string",
             "format": "date-time"
           },
           "descricao": {
+            "type": "string",
+            "nullable": true
+          },
+          "idTipoEvento": {
+            "type": "string",
+            "format": "uuid",
+            "nullable": true
+          },
+          "idInstituicao": {
+            "type": "string",
+            "format": "uuid",
+            "nullable": true
+          },
+          "idInstituicaoNavigation": {
+            "$ref": "#/components/schemas/Instituicao"
+          },
+          "idTipoEventoNavigation": {
+            "$ref": "#/components/schemas/TipoEvento"
+          }
+        },
+        "additionalProperties": false
+      },
+      "EventoDTO": {
+        "required": [
+          "dataEvento",
+          "descricao",
+          "idInstituicao",
+          "idTipoEvento"
+        ],
+        "type": "object",
+        "properties": {
+          "nome": {
+            "type": "string",
+            "nullable": true
+          },
+          "descricao": {
             "minLength": 1,
             "type": "string"
+          },
+          "dataEvento": {
+            "type": "string",
+            "format": "date-time"
           },
           "idTipoEvento": {
             "type": "string",
@@ -981,15 +1026,15 @@
         ],
         "type": "object",
         "properties": {
+          "endereco": {
+            "minLength": 1,
+            "type": "string"
+          },
           "nomeFantasia": {
             "minLength": 1,
             "type": "string"
           },
           "cnpj": {
-            "minLength": 1,
-            "type": "string"
-          },
-          "endereco": {
             "minLength": 1,
             "type": "string"
           }
@@ -999,7 +1044,8 @@
       "LoginDTO": {
         "required": [
           "email",
-          "senha"
+          "senha",
+          "titulo"
         ],
         "type": "object",
         "properties": {
@@ -1010,6 +1056,39 @@
           "senha": {
             "minLength": 1,
             "type": "string"
+          },
+          "titulo": {
+            "minLength": 1,
+            "type": "string"
+          }
+        },
+        "additionalProperties": false
+      },
+      "Presenca": {
+        "type": "object",
+        "properties": {
+          "idPresenca": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "situacao": {
+            "type": "boolean"
+          },
+          "idEvento": {
+            "type": "string",
+            "format": "uuid",
+            "nullable": true
+          },
+          "idUsuario": {
+            "type": "string",
+            "format": "uuid",
+            "nullable": true
+          },
+          "idEventoNavigation": {
+            "$ref": "#/components/schemas/Evento"
+          },
+          "idUsuarioNavigation": {
+            "$ref": "#/components/schemas/Usuario"
           }
         },
         "additionalProperties": false
@@ -1028,6 +1107,22 @@
           "idEvento": {
             "type": "string",
             "format": "uuid",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "TipoEvento": {
+        "type": "object",
+        "properties": {
+          "idTipoEvento": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "titulo": {
+            "maxLength": 100,
+            "minLength": 0,
+            "type": "string",
             "nullable": true
           }
         },
@@ -1075,6 +1170,42 @@
         },
         "additionalProperties": false
       },
+      "Usuario": {
+        "type": "object",
+        "properties": {
+          "idUsuario": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "nome": {
+            "maxLength": 100,
+            "minLength": 0,
+            "type": "string",
+            "nullable": true
+          },
+          "email": {
+            "maxLength": 256,
+            "minLength": 0,
+            "type": "string",
+            "nullable": true
+          },
+          "senha": {
+            "maxLength": 60,
+            "minLength": 0,
+            "type": "string",
+            "nullable": true
+          },
+          "idTipoUsuario": {
+            "type": "string",
+            "format": "uuid",
+            "nullable": true
+          },
+          "idTipoUsuarioNavigation": {
+            "$ref": "#/components/schemas/TipoUsuario"
+          }
+        },
+        "additionalProperties": false
+      },
       "UsuarioDTO": {
         "required": [
           "email",
@@ -1106,14 +1237,16 @@
     "securitySchemes": {
       "Bearer": {
         "type": "http",
-        "description": "Insira o token JWT: ",
-        "scheme": "Bearer",
+        "description": "Bota o token ai j�o E TEM Q SER JWT:",
+        "scheme": "bearer",
         "bearerFormat": "JWT"
       }
     }
   },
   "security": [
-    { }
+    {
+      "Bearer": [ ]
+    }
   ],
   "tags": [
     {

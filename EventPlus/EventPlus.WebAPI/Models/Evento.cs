@@ -13,7 +13,7 @@ public partial class Evento
     [Key]
     public Guid IdEvento { get; set; }
 
-    [StringLength(1)]
+    [StringLength(100)]
     public string Nome { get; set; } = null!;
 
     [Column(TypeName = "datetime")]
@@ -37,7 +37,7 @@ public partial class Evento
     [ForeignKey("IdTipoEvento")]
     [InverseProperty("Eventos")]
     public virtual TipoEvento? IdTipoEventoNavigation { get; set; }
-    
+
     [JsonIgnore]
     [InverseProperty("IdEventoNavigation")]
     public virtual ICollection<Presenca> Presencas { get; set; } = new List<Presenca>();

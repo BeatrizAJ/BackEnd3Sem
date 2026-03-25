@@ -6,7 +6,7 @@ public interface ITipoEventoRepository
 {
     void Cadastrar(TipoEvento tipoEvento);
     void Deletar(Guid id);
-    List<TipoEvento> Listar();
-    TipoEvento BuscarporId(Guid id);
     void Atualizar(Guid id, TipoEvento tipoEvento);
+    List<TipoEvento> Listar();
+    TipoEvento BuscarPorId(Guid id);
 }

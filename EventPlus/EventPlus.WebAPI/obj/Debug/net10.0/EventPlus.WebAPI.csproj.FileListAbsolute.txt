@@ -326,3 +326,4 @@ C:\Users\50765501899\Desktop\BackEnd3Sem\EventPlus\EventPlus.WebAPI\obj\Debug\ne
 C:\Users\50765501899\Desktop\BackEnd3Sem\EventPlus\EventPlus.WebAPI\obj\Debug\net10.0\EventPlus.WebAPI.genruntimeconfig.cache
 C:\Users\50765501899\Desktop\BackEnd3Sem\EventPlus\EventPlus.WebAPI\obj\Debug\net10.0\ref\EventPlus.WebAPI.dll
 C:\Users\50765501899\Desktop\BackEnd3Sem\EventPlus\EventPlus.WebAPI\bin\Debug\net10.0\Azure.AI.ContentSafety.dll
+C:\Users\50765501899\Desktop\BackEnd3Sem\EventPlus\EventPlus.WebAPI\bin\Debug\net10.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll

@@ -1,31 +1,29 @@
-﻿﻿using EventPlus.WebAPI.BdContextEvent;
+﻿using EventPlus.WebAPI.BdContextEvent;
 using EventPlus.WebAPI.Interfaces;
 using EventPlus.WebAPI.Models;
 using Microsoft.EntityFrameworkCore;
 
-namespace EventPlus.WebAPI.Repositorios;
+namespace EventPlus.WebAPI.Repositories;
 
 public class EventoRepository : IEventoRepository
 {
     private readonly EventContext _context;
-
     public EventoRepository(EventContext context)
     {
-        _context = context; 
+        _context = context;
     }
     public void Atualizar(Guid id, Evento evento)
     {
         var EventoBuscado = _context.Eventos.Find(id);
-
         if (EventoBuscado != null)
         {
-           EventoBuscado.Descricao = evento.Descricao;
-
-            //O SaveChanges() detecta a mudança na propriedade "Titulo" automaticamente
+            EventoBuscado.Nome = evento.Nome;
+            EventoBuscado.Descricao = evento.Descricao;
+            EventoBuscado.DataEvento = evento.DataEvento;
+            EventoBuscado.IdTipoEventoNavigation = evento.IdTipoEventoNavigation;
             _context.SaveChanges();
         }
     }
-    
 
     public Evento BuscarPorId(Guid id)
     {
@@ -40,47 +38,33 @@ public class EventoRepository : IEventoRepository
 
     public void Deletar(Guid id)
     {
-        var EventoBuscado = _context.Eventos.Find(id);
-
-        if (EventoBuscado != null)
+        var eventoBuscado = _context.Eventos.Find(id);
+        if (eventoBuscado != null)
         {
-            _context.Eventos.Remove(EventoBuscado);
+            _context.Eventos.Remove(eventoBuscado);
             _context.SaveChanges();
         }
     }
 
     public List<Evento> Listar()
     {
-        return _context.Eventos
-            .OrderBy(evento => evento.IdEvento)
-            .ToList(); 
+        return _context.Eventos.OrderBy(eventoBuscado => eventoBuscado.IdEvento).ToList();
     }
     /// <summary>
-    /// Metodo que lista eventos filtrando pelas prensenças do usuário
+    /// Metodo que lista evento filtrando pela presencas de um usuario
     /// </summary>
-    /// <param name="IdUsuario">Id do usuário para filtragem</param>
+    /// <param name="IdUsuario">Id do usuario</param>
     /// <returns>Lista de eventos filtrados por usuário</returns>
     public List<Evento> ListarPorId(Guid IdUsuario)
     {
-        return _context.Eventos
-            .Include(e => e.Presencas)
-            .Include(e => e.IdTipoEventoNavigation)
-            .Include(e => e.IdInstituicaoNavigation)
-            .Where(e => e.Presencas.Any(p => p.IdUsuario == IdUsuario && p.Situacao))
-            .ToList();
+        return _context.Eventos.Include(e => e.IdTipoEventoNavigation).Include(e => e.IdInstituicaoNavigation).Where(e => e.Presencas.Any(p => p.IdUsuario == IdUsuario && p.Situacao == true)).ToList();
     }
-
     /// <summary>
-    /// Método que busca os próximos evento que irão acontecer
+    /// Metodo que busca os proximos eventos que irão acontecer
     /// </summary>
-    /// <returns>Lista de próximos eventos</returns>
+    /// <returns>retorna lista de proximos evento</returns>
     public List<Evento> ListarProximos()
-    {     
-         return _context.Eventos
-             .Include(e => e.IdTipoEventoNavigation)
-             .Include(e => e.IdInstituicaoNavigation)
-             .Where(e => e.DataEvento >= DateTime.Now)
-             .OrderBy(e => e.DataEvento)
-             .ToList();
+    {
+        return _context.Eventos.Include(e => e.IdTipoEventoNavigation).Include(e => e.IdInstituicaoNavigation).Where(e => e.DataEvento >= DateTime.Now).OrderBy(e => e.DataEvento).ToList();
     }
 }

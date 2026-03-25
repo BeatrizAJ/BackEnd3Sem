@@ -18,7 +18,7 @@ public partial class ComentarioEvento
     [StringLength(200)]
     public string Descricao { get; set; } = null!;
 
-    public bool ExibeComentario { get; set; } // 👈 ALTERADO AQUI
+    public bool ExibeComentario { get; set; }
 
     public Guid? IdEvento { get; set; }
 

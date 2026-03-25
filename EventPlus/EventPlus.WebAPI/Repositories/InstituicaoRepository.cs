@@ -2,63 +2,61 @@
 using EventPlus.WebAPI.Interfaces;
 using EventPlus.WebAPI.Models;
 
-namespace EventPlus.WebAPI.Repositories
+namespace EventPlus.WebAPI.Repositories;
+
+public class InstituicaoRepository : IInstituicaoRepository
 {
-    public class InstituicaoRepository : IInstituicaoRepository
+    private readonly EventContext _context;
+
+    // Injeção de Dependência: Recebe o contexto pronto para uso
+    public InstituicaoRepository(EventContext context)
     {
-        private readonly EventContext _context;
+        _context = context;
+    }
 
-        public InstituicaoRepository(EventContext context)
+    /// <summary>
+    /// Atualiza uma instituição. Aproveitamos o rastreamento do EF.
+    /// </summary>
+    public void Atualizar(Guid IdInstituicao, Instituicao Instituicao)
+    {
+        // Ao usar o Find, o EF começa a "observar" este objeto
+        var instituicaoBuscada = _context.Instituicaos.Find(IdInstituicao);
+
+        if (instituicaoBuscada != null)
         {
-            _context = context;
-        }
+            instituicaoBuscada.Cnpj = Instituicao.Cnpj;
+            instituicaoBuscada.Endereco = Instituicao.Endereco;
+            instituicaoBuscada.NomeFantasia = Instituicao.NomeFantasia;
 
-        public void Atualizar(Guid id, Instituicao instituicao)
-        {
-            var instituicaoBuscada = _context.Instituicaos.Find(id);
-
-            if (instituicaoBuscada != null)
-            {
-                instituicaoBuscada.NomeFantasia = instituicao.NomeFantasia;
-                instituicaoBuscada.Endereco = instituicao.Endereco;
-                instituicaoBuscada.Cnpj = instituicao.Cnpj;
-
-                // Não é necessario chamar o _context.Update de o objeto foi buscado no mesmo contexto
-                _context.SaveChanges();
-            }
-        }
-
-        public Instituicao BuscarPorId(Guid idInstituicao)
-        {
-            return _context.Instituicaos.Find(idInstituicao)!;
-        }
-
-        public void Cadastrar(Instituicao instituicao)
-        {
-            _context.Instituicaos.Add(instituicao);
+            // Não é necessário chamar _context.Update() se o objeto foi buscado no mesmo contexto
             _context.SaveChanges();
-        }
-
-        public void Deletar(Guid idInstituicao)
-        {
-            var instituicaoBuscada = _context.Instituicaos.Find(idInstituicao);
-
-            if (instituicaoBuscada != null)
-            {
-                _context.Instituicaos.Remove(instituicaoBuscada);
-                _context.SaveChanges();
-            }
-        }
-
-        public List<Instituicao> Listar() // Removido parâmetro desnecessário para listagem geral
-        {
-            return _context.Instituicaos.OrderBy(instituicao => instituicao.NomeFantasia).ToList();
-        }
-
-        public void Listar(Guid id)
-        {
-            throw new NotImplementedException();
         }
     }
 
+    public Instituicao BuscarPorId(Guid IdInstituicao)
+    {
+        return _context.Instituicaos.Find(IdInstituicao)!;
+    }
+
+    public void Cadastrar(Instituicao Instituicao)
+    {
+        _context.Instituicaos.Add(Instituicao);
+        _context.SaveChanges();
+    }
+
+    public void Deletar(Guid IdInstituicao)
+    {
+        var instituicaoBuscada = _context.Instituicaos.Find(IdInstituicao);
+
+        if (instituicaoBuscada != null)
+        {
+            _context.Instituicaos.Remove(instituicaoBuscada);
+            _context.SaveChanges();
+        }
+    }
+
+    public List<Instituicao> Listar()
+    {
+        return _context.Instituicaos.ToList();
+    }
 }

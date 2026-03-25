@@ -1,10 +1,10 @@
 ﻿using EventPlus.WebAPI.DTO;
 using EventPlus.WebAPI.Interfaces;
 using EventPlus.WebAPI.Models;
-using EventPlus.WebAPI.Repositories;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore.Query;
+using Microsoft.Identity.Client;
 
 namespace EventPlus.WebAPI.Controllers;
 
@@ -13,17 +13,15 @@ namespace EventPlus.WebAPI.Controllers;
 public class TipoEventoController : ControllerBase
 {
     private ITipoEventoRepository _tipoEventoRepository;
-
-    //Injecao de dependencia
+    //injeção de dependencia
     public TipoEventoController(ITipoEventoRepository tipoEventoRepository)
     {
         _tipoEventoRepository = tipoEventoRepository;
     }
-
     /// <summary>
-    /// Endpoint da API q faz a chamada p medoto de lista tipos de evento
+    /// Endpoint da api que faz a chamada para o metodo de lista os tipos de evento
     /// </summary>
-    /// <returns>status code 200 e alista de tipos de evento</returns>
+    /// <returns>Status code 200 e alista os tipos de evento</returns>
     [HttpGet]
     public IActionResult Listar()
     {
@@ -31,36 +29,35 @@ public class TipoEventoController : ControllerBase
         {
             return Ok(_tipoEventoRepository.Listar());
         }
-        catch (Exception e)
+        catch (Exception erro)
         {
-            return BadRequest(e.Message);
+            return BadRequest(erro.Message);
         }
     }
 
     /// <summary>
-    /// Endpoint da API q faz a chamada para o metodo de buscar um tipo de evento especifico
+    /// Endpoint da api que faz a chamada para o metodo de buscar um tipo de evento especifico
     /// </summary>
-    /// <param name="id">Id do tipo de evento buscado</param>
-    /// <returns>Status code 200 e o tipo de evento buscadoS</returns>
+    /// <param name="id">id do tipo de evento buscado</param>
+    /// <returns>Status code 200 e o tipo de evento buscado</returns>
     [HttpGet("{id}")]
     public IActionResult BuscarPorId(Guid id)
     {
         try
         {
-            return Ok(_tipoEventoRepository.BuscarporId(id));
+            return Ok(_tipoEventoRepository.BuscarPorId(id));
         }
-        catch (Exception e)
+        catch (Exception erro)
         {
-            return BadRequest(e.Message);
+            return BadRequest(erro.Message);
         }
     }
 
     /// <summary>
-    /// Endpoint da API que faz a chamada para o metodo de cadastrar um tipo de evento
+    /// Endpoint da API faz a chamada para o metodo de cadastro um tipo de evento 
     /// </summary>
     /// <param name="tipoEvento">Tipo de evento a ser cadastrado</param>
-    /// <returns>Status code 201 e o tipo de evento a ser cadastrado</returns>
-    [Authorize]
+    /// <returns>Status Code 201 e o tipo de evento a ser cadastrado</returns>
     [HttpPost]
     public IActionResult Cadastrar(TipoEventoDTO tipoEvento)
     {
@@ -68,38 +65,32 @@ public class TipoEventoController : ControllerBase
         {
             var novoTipoEvento = new TipoEvento
             {
-             Titulo = tipoEvento.Titulo!,
+                Titulo = tipoEvento.Titulo!
             };
-
             _tipoEventoRepository.Cadastrar(novoTipoEvento);
-
-            return StatusCode(201, tipoEvento);
+            return StatusCode(201, novoTipoEvento);
         }
-        catch (Exception e)
+        catch (Exception erro)
         {
-            return BadRequest(e.Message);
+            return BadRequest(erro.Message);
         }
     }
-
     /// <summary>
-    /// Endpoit API q faz a chamada para o metodo de atualizar um tipo de evento
+    /// Endpoint da API que faz a chamada para o metodo de atualizar um tipo de evento
     /// </summary>
     /// <param name="id">Id do tipo evento a ser atualizado</param>
     /// <param name="tipoEvento">tipo de evento com os dados atualizados</param>
-    /// <returns>Staus code 204 e o tipo de evento atualizados</returns>
+    /// <returns>Status Code 204 e o tipo de evento atualizado</returns>
     [HttpPut("{id}")]
-
     public IActionResult Atualizar(Guid id, TipoEventoDTO tipoEvento)
     {
         try
         {
-            var tipoEventoAtualizado = new TipoEvento
-            { 
-             Titulo = tipoEvento.Titulo!
+            var novoTipoEvento = new TipoEvento
+            {
+                Titulo = tipoEvento.Titulo!
             };
-
-            _tipoEventoRepository.Atualizar(id, tipoEventoAtualizado);
-
+            _tipoEventoRepository.Atualizar(id, novoTipoEvento);
             return StatusCode(204, tipoEvento);
         }
         catch (Exception erro)
@@ -107,19 +98,17 @@ public class TipoEventoController : ControllerBase
             return BadRequest(erro.Message);
         }
     }
-    
     /// <summary>
-    /// Endpoint da API q faz a chamada p metodo deletar um tipo de evento
+    /// Endpoint da API que faz a chamada para o metodo de deletar um tipo de evento
     /// </summary>
     /// <param name="id">Id do tipo do evento a ser excluido</param>
-    /// <returns>Status code 204</returns>
+    /// <returns>Status Code 204</returns>
     [HttpDelete("{id}")]
     public IActionResult Delete(Guid id)
     {
         try
         {
             _tipoEventoRepository.Deletar(id);
-
             return NoContent();
         }
         catch (Exception erro)
@@ -127,4 +116,6 @@ public class TipoEventoController : ControllerBase
             return BadRequest(erro.Message);
         }
     }
+
+
 }

@@ -1,9 +1,9 @@
 ﻿using EventPlus.WebAPI.BdContextEvent;
 using EventPlus.WebAPI.Interfaces;
 using EventPlus.WebAPI.Models;
-using Microsoft.AspNetCore.Http.HttpResults;
+using Microsoft.EntityFrameworkCore;
 
-namespace EventPlus.WebAPI.Repositorios;
+namespace EventPlus.WebApi.Repositories;
 
 public class ComentarioEventoRepository : IComentarioEventoRepository
 {
@@ -14,32 +14,19 @@ public class ComentarioEventoRepository : IComentarioEventoRepository
         _context = context;
     }
 
-
-    public void Atualizar(Guid id, ComentarioEvento comentarioEvento)
+    public ComentarioEvento BuscarPorIdUsuario(Guid idUsuario)
     {
-        var comentarioEventoBuscado = _context.ComentarioEventos.Find(id);
-        if (comentarioEventoBuscado != null)
-        {
-            comentarioEventoBuscado.Descricao = comentarioEvento.Descricao;
-
-            _context.SaveChanges();
-        }
+        return _context.ComentarioEventos.FirstOrDefault(c => c.IdUsuario == idUsuario)!;
     }
-
-    public ComentarioEvento BuscarPorIdUsuario(Guid idUsuario, Guid idEvento)
-    {
-        return _context.ComentarioEventos.FirstOrDefault(c => c.IdUsuario == idUsuario && c.IdEvento == idEvento)!;
-    }
-
     public void Cadastrar(ComentarioEvento comentarioEvento)
     {
         _context.ComentarioEventos.Add(comentarioEvento);
         _context.SaveChanges();
     }
 
-    public void Deletar(Guid idcomentarioEvento)
+    public void Deletar(Guid idComentarioEvento)
     {
-        var comentarioEventoBuscado = _context.ComentarioEventos.Find(idcomentarioEvento);
+        var comentarioEventoBuscado = _context.ComentarioEventos.Find(idComentarioEvento);
 
         if (comentarioEventoBuscado != null)
         {
@@ -47,20 +34,16 @@ public class ComentarioEventoRepository : IComentarioEventoRepository
             _context.SaveChanges();
         }
     }
-
-    public List<ComentarioEvento> List(Guid IdEvento)
+    public List<ComentarioEvento> Listar()
     {
-        throw new NotImplementedException();
+        return _context.ComentarioEventos.OrderBy(ComentarioEvento => ComentarioEvento.Descricao).ToList();
     }
-
-    public List<ComentarioEvento> Listar(Guid IdEvento)
+    public List<ComentarioEvento> ListarSomenteExibe(Guid IdEvento)
     {
-        return _context.ComentarioEventos.ToList();
-    }
-
-    public List<ComentarioEvento> ListarSomenteExibe(Guid idEvento)
-    {
-        return _context.ComentarioEventos.Where(c => c.IdEvento == idEvento && c.ExibeComentario).ToList();
-
+        return _context.ComentarioEventos
+            .Include(u => u.IdUsuarioNavigation)
+            .Where(c => c.ExibeComentario == true && c.IdEvento == IdEvento)
+            .OrderBy(c => c.Descricao)
+            .ToList()!;
     }
 }

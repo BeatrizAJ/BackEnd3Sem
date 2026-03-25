@@ -4,121 +4,126 @@ using EventPlus.WebAPI.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
-namespace EventPlus.WebAPI.Controllers;
-
-[Route("api/[controller]")]
-[ApiController]
-public class InstituicaoController : ControllerBase
+namespace EventPlus.WebAPI.Controllers
 {
-    private readonly IInstituicaoRepository _instituicaoRepository;
-
-    public InstituicaoController(IInstituicaoRepository instituicaoRepository)
+    [Route("api/[controller]")]
+    [ApiController]
+    public class InstituicaoController : ControllerBase
     {
-        _instituicaoRepository = instituicaoRepository;
-    }
-
-    /// <summary>
-    /// Endpoint da api, que faz a chamada para o método de lista as instituições
-    /// </summary>
-    /// <returns>Status code 200 e a lista de tipos de eventos</returns>
-    [HttpGet]
-    public IActionResult Listar()
-    {
-        try
+        private IInstituicaoRepository _InstituicaoRepository;
+        //injeção de dependencia
+        public InstituicaoController(IInstituicaoRepository institucaoRepository)
         {
-            return Ok(_instituicaoRepository.Listar());
+            _InstituicaoRepository = institucaoRepository;
         }
-        catch (Exception e)
+        /// <summary>
+        /// Endpoint da api que faz a chamada para o metodo de lista os tipos de evento
+        /// </summary>
+        /// <returns>Status code 200 e alista os tipos de evento</returns>
+        [HttpGet]
+        public IActionResult Listar()
         {
-            return BadRequest(e.Message);
-        }
-    }
-
-    /// <summary>
-    /// Endpoint da api, que faz a chamada para o método de buscar uma instituição
-    /// </summary>
-    /// <param name="id">id da instituição buscada</param>
-    /// <returns>st  atus code 200 e a instituição buscada</returns>
-    [HttpGet("{id}")]
-    public IActionResult BuscarPorId(Guid id)
-    {
-        try
-        {
-            return Ok(_instituicaoRepository.BuscarPorId(id));
-        }
-        catch (Exception e)
-        {
-            return BadRequest(e.Message);
-        }
-    }
-
-    /// <summary>
-    /// Endpoint da api, que faz a chamada para o método de cadastro uma instituição
-    /// </summary>
-    /// <param name="instituicao">Instituição a ser cadastrada</param>
-    /// <returns>Status code 201 e a instituição a ser cadastrada</returns>
-    [HttpPost]
-    public IActionResult Cadastrar(InstituicaoDTO instituicao)
-    {
-        try
-        {
-            var novaInstituicao = new Instituicao
+            try
             {
-                NomeFantasia = instituicao.NomeFantasia!,
-                Cnpj = instituicao.CNPJ!,
-                Endereco = instituicao.Endereco!
-            };
-            _instituicaoRepository.Cadastrar(novaInstituicao);
-            return StatusCode(201, novaInstituicao);
-        }
-        catch (Exception e)
-        {
-            return BadRequest(e.Message);
-        }
-    }
-
-    /// <summary>
-    /// Endpoint da api, que faz a chamada para o método de atualizar uma instituição
-    /// </summary>
-    /// <param name="id">Id da instituição a ser atualizada</param>
-    /// <param name="instituicao">Instituição com os dados atualizados</param>
-    /// <returns>Status code 204 e a instituição atualizada</returns>
-    [HttpPut("{id}")]
-    public IActionResult Atualizar(Guid id, Instituicao instituicao)
-    {
-        try
-        {
-            var instituicaoAtualizada = new Instituicao
+                return Ok(_InstituicaoRepository.Listar());
+            }
+            catch (Exception erro)
             {
-                NomeFantasia = instituicao.NomeFantasia!,
-                Cnpj = instituicao.Cnpj!,
-                Endereco = instituicao.Endereco!
-            };
-            _instituicaoRepository.Atualizar(id, instituicaoAtualizada);
-            return StatusCode(204, instituicaoAtualizada);
+                return BadRequest(erro.Message);
+            }
         }
-        catch (Exception e)
+
+        /// <summary>
+        /// Endpoint da api que faz a chamada para o metodo de buscar um tipo de evento especifico
+        /// </summary>
+        /// <param name="id">id do tipo de evento buscado</param>
+        /// <returns>Status code 200 e o tipo de evento buscado</returns>
+        [HttpGet("{id}")]
+        public IActionResult BuscarPorId(Guid id)
         {
-            return BadRequest(e.Message);
+            try
+            {
+                return Ok(_InstituicaoRepository.BuscarPorId(id));
+            }
+            catch (Exception erro)
+            {
+                return BadRequest(erro.Message);
+            }
         }
+
+        /// <summary>
+        /// Endpoint da API faz a chamada para o metodo de cadastro um tipo de evento 
+        /// </summary>
+        /// <param name="tipoEvento">Tipo de evento a ser cadastrado</param>
+        /// <returns>Status Code 201 e o tipo de evento a ser cadastrado</returns>
+        [HttpPost]
+        public IActionResult Cadastrar(InstituicaoDTO instituicao)
+        {
+            try
+            {
+                var novainstituicao = new Instituicao
+                {
+                    NomeFantasia = instituicao.NomeFantasia!,
+                    Cnpj = instituicao.Cnpj!,
+                    Endereco = instituicao.Endereco!,
+                    Eventos = new List<Evento>()
+                };
+                _InstituicaoRepository.Cadastrar(novainstituicao);
+                return StatusCode(201, novainstituicao);
+
+            }
+            catch (Exception erro)
+            {
+                return BadRequest(erro.Message);
+            }
+
+        }
+        /// <summary>
+        /// Endpoint da API que faz a chamada para o metodo de atualizar um tipo de evento
+        /// </summary>
+        /// <param name="id">Id do tipo evento a ser atualizado</param>
+        /// <param name="tipoEvento">tipo de evento com os dados atualizados</param>
+        /// <returns>Status Code 204 e o tipo de evento atualizado</returns>
+        [HttpPut("{id}")]
+        public IActionResult Atualizar(Guid id, InstituicaoDTO instituicao)
+        {
+            try
+            {
+                var novainstituicao = new Instituicao
+                {
+                    NomeFantasia = instituicao.NomeFantasia!,
+                    Cnpj = instituicao.Cnpj!,
+                    Endereco = instituicao.Endereco!,
+                    Eventos = new List<Evento>()
+                };
+                _InstituicaoRepository.Atualizar(id, novainstituicao);
+                return StatusCode(204, instituicao);
+            }
+            catch (Exception erro)
+            {
+                return BadRequest(erro.Message);
+            }
+        }
+        /// <summary>
+        /// Endpoint da API que faz a chamada para o metodo de deletar um tipo de evento
+        /// </summary>
+        /// <param name="id">Id do tipo do evento a ser excluido</param>
+        /// <returns>Status Code 204</returns>
+        [HttpDelete("{id}")]
+        public IActionResult Delete(Guid id)
+        {
+            try
+            {
+                _InstituicaoRepository.Deletar(id);
+                return NoContent();
+            }
+            catch (Exception erro)
+            {
+                return BadRequest(erro.Message);
+            }
+        }
+
+
     }
 
-    /// <summary>
-    /// Endpoint da api, que faz a chamada para o método de deletar uma instituição
-    /// </summary>
-    /// <param name="id">Id da instituição</param>
-    /// <returns>Status code 204</returns>
-    [HttpDelete("{id}")]
-    public IActionResult Deletar(Guid id)
-    {
-        try
-        {
-            _instituicaoRepository.Deletar(id);
-            return NoContent();
-        }
-        catch (Exception e)
-        {
-            return BadRequest(e.Message);
-        }
-    }
 }
