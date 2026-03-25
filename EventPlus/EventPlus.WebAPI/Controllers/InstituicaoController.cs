@@ -65,7 +65,7 @@ public class InstituicaoController : ControllerBase
             var novaInstituicao = new Instituicao
             {
                 NomeFantasia = instituicao.NomeFantasia!,
-                Cnpj = instituicao.Cnpj!,
+                Cnpj = instituicao.CNPJ!,
                 Endereco = instituicao.Endereco!
             };
             _instituicaoRepository.Cadastrar(novaInstituicao);

@@ -8,17 +8,17 @@ public class TipoEventoRepository : ITipoEventoRepository
 {
     private readonly EventContext _context;
 
-    //Injecao d dependencia: Recebe o contexto pelo construtor
+    // Injeção de dependência: Recebe o contexto pelo construtor
     public TipoEventoRepository(EventContext context)
     {
-      _context = context;
+        _context = context;
     }
-    /// <summary>
-    /// 
-    /// </summary>
-    /// <param name="id">id do tipo evento p atualiz</param>
-    /// <param name="tipoEvento">novo dado do tip evento</param>
 
+    /// <summary>
+    /// Atualiza um tipo de evento usando o rastreamento automático
+    /// </summary>
+    /// <param name="id">id do tipo evento a ser atualizado</param>
+    /// <param name="tipoEvento">Novos dados do tipo evento</param>
     public void Atualizar(Guid id, TipoEvento tipoEvento)
     {
         var tipoEventoBuscado = _context.TipoEventos.Find(id);
@@ -27,6 +27,7 @@ public class TipoEventoRepository : ITipoEventoRepository
         {
             tipoEventoBuscado.Titulo = tipoEvento.Titulo;
 
+            //O SaveChanges() detecta a mudança na propriedade "Titulo" automaticamente
             _context.SaveChanges();
         }
     }
@@ -37,17 +38,22 @@ public class TipoEventoRepository : ITipoEventoRepository
     }
 
     /// <summary>
-    /// Busca um tipo de evento p id
+    /// Busca um tipo de evento por Id
     /// </summary>
     /// <param name="id">id do tipo evento a ser buscado</param>
-    /// <returns>Objeto do tipo evento com as informacoes do tipo buscado</returns>
-    public TipoEvento BuscarporId(Guid id)
+    /// <returns>Objeto do tipoEvento com as informações do tipo de evento buscado</returns>
+    public TipoEvento BuscarPorId(Guid id)
     {
         return _context.TipoEventos.Find(id)!;
     }
 
+    public TipoUsuario BuscarporId(Guid id)
+    {
+        throw new NotImplementedException();
+    }
+
     /// <summary>
-    ///     Cadastra um nvo tipo de evento
+    /// Cadastra um novo tipo de evento
     /// </summary>
     /// <param name="tipoEvento">Tipo de evento a ser cadastrado</param>
     public void Cadastrar(TipoEvento tipoEvento)
@@ -62,7 +68,7 @@ public class TipoEventoRepository : ITipoEventoRepository
     }
 
     /// <summary>
-    /// Deleta um tipo de evento 
+    /// Deleta um tipo de evento
     /// </summary>
     /// <param name="id">id do tipo evento a ser deletado</param>
     public void Deletar(Guid id)
@@ -75,21 +81,24 @@ public class TipoEventoRepository : ITipoEventoRepository
             _context.SaveChanges();
         }
     }
+
     /// <summary>
-    /// Buscar a lista de eventos cadastrados 
+    /// Busca a lista de tipo de eventos cadastrados
     /// </summary>
-    /// <returns>Uma lista do tipo eventos</returns>
+    /// <returns>Uma lista de tipo eventos</returns>
     public List<TipoEvento> Listar()
     {
-        return _context.TipoEventos.OrderBy(tipoEvento => tipoEvento.Titulo).ToList();
+        return _context.TipoEventos
+            .OrderBy(tipoEvento => tipoEvento.Titulo)
+            .ToList();
     }
 
-    TipoUsuario ITipoEventoRepository.BuscarporId(Guid id)
+    TipoEvento ITipoEventoRepository.BuscarporId(Guid id)
     {
         throw new NotImplementedException();
     }
 
-    List<TipoUsuario> ITipoEventoRepository.Listar()
+    List<TipoEvento> ITipoEventoRepository.Listar()
     {
         throw new NotImplementedException();
     }

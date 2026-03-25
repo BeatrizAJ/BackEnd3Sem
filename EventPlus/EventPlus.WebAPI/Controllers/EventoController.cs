@@ -79,6 +79,8 @@ namespace EventPlus.WebAPI.Controllers
                     Nome = evento.Nome!,
                     DataEvento = evento.DataEvento,
                     Descricao = evento.Descricao!,
+                    IdTipoEvento = evento.IdTipoEvento,
+                    IdInstituicao = evento.IdInstituicao
 
                 };
 
@@ -103,7 +105,7 @@ namespace EventPlus.WebAPI.Controllers
                 {
                     Nome = evento.Nome!,
                     DataEvento = evento.DataEvento,
-                    Descricao = evento.Descricao!,
+                    Descricao = evento.Descricao.ToString()!,
                     IdTipoEvento = evento.IdTipoEvento,
                     IdInstituicao = evento.IdInstituicao
                 };

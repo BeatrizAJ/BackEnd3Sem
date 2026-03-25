@@ -6,11 +6,8 @@ public interface IInstituicaoRepository
 {
     void Cadastrar(Instituicao instituicao);
     void Deletar(Guid id);
-
     void Listar(Guid id);
     List<Instituicao> Listar();
-
     Instituicao BuscarPorId(Guid id);
-
     void Atualizar(Guid Id, Instituicao instituicao);
 }

@@ -3,6 +3,7 @@ using Azure.AI.ContentSafety;
 using EventPlus.WebAPI.DTO;
 using EventPlus.WebAPI.Interfaces;
 using EventPlus.WebAPI.Models;
+using EventPlus.WebAPI.Repositorios;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -13,15 +14,46 @@ namespace EventPlus.WebAPI.Controllers;
 public class ComentarioEventoController : ControllerBase
 {
     private readonly ContentSafetyClient _contentSafetyClient;
+    private readonly IComentarioEventoRepository _comentarioEventoRepository;
 
-    private readonly IComentarioEventoRepository 
-        _comentarioEventoRepository;
 
     public ComentarioEventoController(ContentSafetyClient contentSafetyClient, IComentarioEventoRepository comentarioEventoRepository)
     {
         _contentSafetyClient = contentSafetyClient;
         _comentarioEventoRepository = comentarioEventoRepository;
     }
+    [HttpGet("ListarTodos{id}")]
+    public IActionResult ListarEvento(Guid id)
+    {
+        try
+        {
+            return Ok(_comentarioEventoRepository.List(id));
+        }
+        catch (Exception e)
+        {
+            return BadRequest(e.Message);
+        }
+    }
+
+    [HttpGet("ListarSomenteExibe{id}")]
+    public IActionResult ListarSomenteExibe(Guid id)
+    {
+        return Ok(_comentarioEventoRepository.ListarSomenteExibe(id));
+    }
+
+    [HttpGet("BuscarPorIdUsuario{id}")]
+    public IActionResult BuscarPorIdUsuario(Guid idUsuario, Guid idEvento)
+    {
+        try
+        {
+            return Ok(_comentarioEventoRepository.BuscarPorIdUsuario(idUsuario, idEvento));
+        }
+        catch (Exception e)
+        {
+            return BadRequest(e.Message);
+        }
+    }
+
 
     [HttpPost]
     public async Task<IActionResult> Post(ComentarioEventoDTO comentarioEvento)
@@ -30,14 +62,16 @@ public class ComentarioEventoController : ControllerBase
         {
             if (string.IsNullOrEmpty(comentarioEvento.Descricao))
             {
-                return BadRequest("O texto a ser moderado nao pode ser vazio!");
+                return BadRequest("O Texto a ser moderado não pode estar vazio");
             }
-            //criar obj de analise
+
+            //Criar objeto de análise
             var request = new AnalyzeTextOptions(comentarioEvento.Descricao);
 
+            //Chamar a API Do Azure Content Safety
             Response<AnalyzeTextResult> response = await _contentSafetyClient.AnalyzeTextAsync(request);
 
-            //verificar se o texto tem alguma severidade maior que 0
+            //Verificar se o texto tem alguma severidade maior que 0
             bool temConteudoImproprio = response.Value.CategoriesAnalysis.Any(c => c.Severity > 0);
 
             var novoComentario = new ComentarioEvento
@@ -45,17 +79,34 @@ public class ComentarioEventoController : ControllerBase
                 IdEvento = comentarioEvento.IdEvento,
                 IdUsuario = comentarioEvento.IdUsuario,
                 Descricao = comentarioEvento.Descricao,
-                ExibeComentario= !temConteudoImproprio,
+                ExibeComentario = !temConteudoImproprio,
                 DataComentarioEvento = DateTime.Now
             };
 
             _comentarioEventoRepository.Cadastrar(novoComentario);
 
             return StatusCode(201, novoComentario);
+
+        }
+        catch (Exception erro)
+        {
+
+            return BadRequest(erro.Message);
+        }
+    }
+
+    [HttpDelete("{id}")]
+    public IActionResult Deletar(Guid id)
+    {
+        try
+        {
+            _comentarioEventoRepository.Deletar(id);
+            return NoContent();
         }
         catch (Exception e)
         {
             return BadRequest(e.Message);
         }
     }
+
 }

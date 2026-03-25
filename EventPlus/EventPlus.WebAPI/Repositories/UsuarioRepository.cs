@@ -4,7 +4,7 @@ using EventPlus.WebAPI.Models;
 using EventPlus.WebAPI.Utils;
 using Microsoft.EntityFrameworkCore;
 
-namespace EventPlus.WebAPI.Repositories;
+namespace EventPlus.WebAPI.Repositorios;
 
 public class UsuarioRepository : IUsuarioRepository
 {
@@ -15,38 +15,49 @@ public class UsuarioRepository : IUsuarioRepository
     {
         _context = context;
     }
-
     /// <summary>
-    /// Busca o usuario pelo email e falida o hash da senha
+    /// Busca o usuário pelo E-mail e valida o hash da senha
     /// </summary>
-    /// <param name="Email">email do usuario</param>
-    /// <param name="Senha">senha do usuario</param>
-    /// <returns>Usuario Buscado e validado</returns>
+    /// <param name="Email">email do usuário</param>
+    /// <param name="Senha">senha do usuário</param>
+    /// <returns>Usuário buscado e validado</returns>
     public Usuario BuscarPorEmailESenha(string Email, string Senha)
     {
-        //Primeiro, buscamos o usuario pelo email
-      var usuarioBuscado = _context.Usuarios.Include(usuario => usuario.IdTipoUsuarioNavigation)
+        //Primeiro, buscamos o usuário pelo email
+        var usuarioBuscado = _context.Usuarios
+            .Include(usuario => usuario.IdTipoUsuarioNavigation)
             .FirstOrDefault(usuario => usuario.Email == Email);
 
-        //Verifica se o usuario realmente existe
+        //Verifica se o usuário existe
         if (usuarioBuscado != null)
         {
-            //Comparamos o hash da senha digitada com oq esta no banco
-           bool confere = Criptografia.CompararHash(Senha, usuarioBuscado.Senha);
+            //Comparamos o hash da senha digitada com o que está no banco de dados
+            bool confere = Criptografia.CompararHash(Senha, usuarioBuscado.Senha);
 
             if (confere)
             {
                 return usuarioBuscado;
             }
+            else
+            {
+                return null!;
+            }
         }
+
         return null!;
+
+    }
+
+    public Usuario BuscarPorEmailESenha(string Email, string Senha, string Titulo)
+    {
+        throw new NotImplementedException();
     }
 
     /// <summary>
-    /// Busca um usuario pelo ID incluindo os dados do seu tipo usuario
+    /// Busca um usuário por seu ID, incluindo os dados do seu tipo usuário.
     /// </summary>
-    /// <param name="IdUsuario">Id do usuario a ser buscado</param>
-    /// <returns>Usuario buscado</returns>
+    /// <param name="IdUsuario">Id do usuário a ser buscado</param> 
+    /// <returns>Usuário buscado</returns>
     public Usuario BuscarPorId(Guid IdUsuario)
     {
         return _context.Usuarios
@@ -55,14 +66,19 @@ public class UsuarioRepository : IUsuarioRepository
     }
 
     /// <summary>
-    /// Cadastra um novo usuari com a senha criptografada
+    /// Cadastra um novo usuário com senha criptografada
     /// </summary>
-    /// <param name="usuario">usuario a ser cadastrado</param>
+    /// <param name="usuario">Usuário a ser cadastrado</param>
     public void Cadastrar(Usuario usuario)
     {
-        usuario.Senha = Criptografia.GerarHash(usuario.Senha); 
+        usuario.Senha = Criptografia.GerarHash(usuario.Senha);
 
         _context.Usuarios.Add(usuario);
         _context.SaveChanges();
+    }
+
+    public List<Usuario> Listar()
+    {
+        return _context.Usuarios.ToList();
     }
 }

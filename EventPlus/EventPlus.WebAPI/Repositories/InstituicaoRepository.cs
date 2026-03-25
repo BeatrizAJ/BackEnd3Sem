@@ -28,9 +28,9 @@ namespace EventPlus.WebAPI.Repositories
             }
         }
 
-        public Instituicao BuscarPorId(Guid id)
+        public Instituicao BuscarPorId(Guid idInstituicao)
         {
-            return _context.Instituicaos.Find(id)!;
+            return _context.Instituicaos.Find(idInstituicao)!;
         }
 
         public void Cadastrar(Instituicao instituicao)
@@ -39,9 +39,9 @@ namespace EventPlus.WebAPI.Repositories
             _context.SaveChanges();
         }
 
-        public void Deletar(Guid id)
+        public void Deletar(Guid idInstituicao)
         {
-            var instituicaoBuscada = _context.Instituicaos.Find(id);
+            var instituicaoBuscada = _context.Instituicaos.Find(idInstituicao);
 
             if (instituicaoBuscada != null)
             {

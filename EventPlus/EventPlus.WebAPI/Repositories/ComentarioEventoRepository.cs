@@ -1,55 +1,66 @@
 ﻿using EventPlus.WebAPI.BdContextEvent;
 using EventPlus.WebAPI.Interfaces;
 using EventPlus.WebAPI.Models;
-using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Http.HttpResults;
 
-namespace EventPlus.WebAPI.Repositories
+namespace EventPlus.WebAPI.Repositorios;
+
+public class ComentarioEventoRepository : IComentarioEventoRepository
 {
-    public class ComentarioEventoRepository : IComentarioEventoRepository
+    private readonly EventContext _context;
+
+    public ComentarioEventoRepository(EventContext context)
     {
-        private readonly EventContext _context;
+        _context = context;
+    }
 
-        public ComentarioEventoRepository(EventContext context)
+
+    public void Atualizar(Guid id, ComentarioEvento comentarioEvento)
+    {
+        var comentarioEventoBuscado = _context.ComentarioEventos.Find(id);
+        if (comentarioEventoBuscado != null)
         {
-            _context = context;
-        }
+            comentarioEventoBuscado.Descricao = comentarioEvento.Descricao;
 
-
-
-        public void Cadastrar(ComentarioEvento comentarioEvento)
-        {
-            _context.ComentarioEventos.Add(comentarioEvento);
             _context.SaveChanges();
         }
+    }
 
-        public void Deletar(Guid id)
-        {
-            var comentarioBuscado = _context.ComentarioEventos.Find(id);
-            if (comentarioBuscado != null)
-            {
-                _context.ComentarioEventos.Remove(comentarioBuscado);
-                _context.SaveChanges();
-            }
-        }
+    public ComentarioEvento BuscarPorIdUsuario(Guid idUsuario, Guid idEvento)
+    {
+        return _context.ComentarioEventos.FirstOrDefault(c => c.IdUsuario == idUsuario && c.IdEvento == idEvento)!;
+    }
 
-        public List<ComentarioEvento> Listar()
-        {
-            return _context.ComentarioEventos.Include(c => c.IdUsuarioNavigation).ToList();
-        }
+    public void Cadastrar(ComentarioEvento comentarioEvento)
+    {
+        _context.ComentarioEventos.Add(comentarioEvento);
+        _context.SaveChanges();
+    }
 
-        public List<ComentarioEvento> List(Guid idEvento)
-        {
-            return _context.ComentarioEventos.Where(c => c.IdEvento == idEvento).Include(c => c.IdUsuarioNavigation).ToList();
-        }
+    public void Deletar(Guid idcomentarioEvento)
+    {
+        var comentarioEventoBuscado = _context.ComentarioEventos.Find(idcomentarioEvento);
 
-        public List<ComentarioEvento> ListarSomenteExibe(Guid idEvento)
+        if (comentarioEventoBuscado != null)
         {
-            return _context.ComentarioEventos.Where(c => c.IdEvento == idEvento && c.ExibeComentario == true).Include(c => c.IdUsuarioNavigation).ToList();
+            _context.ComentarioEventos.Remove(comentarioEventoBuscado);
+            _context.SaveChanges();
         }
+    }
 
-        public ComentarioEvento BuscarPorIdUsuario(Guid idUsuario, Guid idEvento)
-        {
-            return _context.ComentarioEventos.FirstOrDefault(c => c.IdUsuario == idUsuario && c.IdEvento == idEvento)!;
-        }
+    public List<ComentarioEvento> List(Guid IdEvento)
+    {
+        throw new NotImplementedException();
+    }
+
+    public List<ComentarioEvento> Listar(Guid IdEvento)
+    {
+        return _context.ComentarioEventos.ToList();
+    }
+
+    public List<ComentarioEvento> ListarSomenteExibe(Guid idEvento)
+    {
+        return _context.ComentarioEventos.Where(c => c.IdEvento == idEvento && c.ExibeComentario).ToList();
+
     }
 }
