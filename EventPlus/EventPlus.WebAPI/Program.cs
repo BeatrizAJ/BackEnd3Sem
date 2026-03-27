@@ -12,7 +12,6 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Reflection.Metadata;
 using System.Security.Claims;
 using Azure.AI.ContentSafety;
-using EventPlus.WebAPI.Repositories;
 using EventPlus.WebApi.Repositories;
 
 var builder = WebApplication.CreateBuilder(args);

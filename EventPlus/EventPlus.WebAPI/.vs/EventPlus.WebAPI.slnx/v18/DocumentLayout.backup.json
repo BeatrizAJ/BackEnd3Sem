@@ -79,15 +79,14 @@
             {
               "$type": "Document",
               "DocumentIndex": 2,
-              "Title": "EventPlus.WebAPI",
+              "Title": "EventPlus.WebAPI.csproj",
               "DocumentMoniker": "C:\\Users\\50765501899\\Desktop\\BackEnd3Sem\\EventPlus\\EventPlus.WebAPI\\EventPlus.WebAPI.csproj",
               "RelativeDocumentMoniker": "EventPlus.WebAPI.csproj",
               "ToolTip": "C:\\Users\\50765501899\\Desktop\\BackEnd3Sem\\EventPlus\\EventPlus.WebAPI\\EventPlus.WebAPI.csproj",
               "RelativeToolTip": "EventPlus.WebAPI.csproj",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
-              "WhenOpened": "2026-03-25T17:28:00.869Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-03-25T17:28:00.869Z"
             },
             {
               "$type": "Document",
@@ -97,7 +96,7 @@
               "RelativeDocumentMoniker": "Program.cs",
               "ToolTip": "C:\\Users\\50765501899\\Desktop\\BackEnd3Sem\\EventPlus\\EventPlus.WebAPI\\Program.cs",
               "RelativeToolTip": "Program.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAFIAAAA0AAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA4AAAAkAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2026-03-25T17:27:14.425Z",
               "EditorCaption": ""
@@ -112,8 +111,7 @@
               "RelativeToolTip": "Repositories\\UsuarioRepository.cs",
               "ViewState": "AgIAABwAAAAAAAAAAAAuwEAAAAABAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-03-25T17:26:36.187Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-03-25T17:26:36.187Z"
             },
             {
               "$type": "Document",
@@ -125,8 +123,7 @@
               "RelativeToolTip": "Repositories\\TipoUsuarioRepository.cs",
               "ViewState": "AgIAAEAAAAAAAAAAAAAqwE4AAAABAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-03-25T17:26:23.083Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-03-25T17:26:23.083Z"
             },
             {
               "$type": "Document",
@@ -138,8 +135,7 @@
               "RelativeToolTip": "Repositories\\TipoEventoRepository.cs",
               "ViewState": "AgIAAC8AAAAAAAAAAAAuwFMAAAABAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-03-25T17:26:12.567Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-03-25T17:26:12.567Z"
             },
             {
               "$type": "Document",
@@ -151,8 +147,7 @@
               "RelativeToolTip": "Models\\ComentarioEvento.cs",
               "ViewState": "AgIAABQAAAAAAAAAAAA2wCEAAAABAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-03-25T17:18:55.214Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-03-25T17:18:55.214Z"
             },
             {
               "$type": "Document",
@@ -164,8 +159,7 @@
               "RelativeToolTip": "Repositories\\PresencaRepository.cs",
               "ViewState": "AgIAAEoAAAAAAAAAAAAuwG4AAAABAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-03-25T17:25:30.289Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-03-25T17:25:30.289Z"
             },
             {
               "$type": "Document",
@@ -177,8 +171,7 @@
               "RelativeToolTip": "Repositories\\InstituicaoRepository.cs",
               "ViewState": "AgIAABkAAAAAAAAAAAAuwD0AAAABAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-03-25T17:25:08.692Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-03-25T17:25:08.692Z"
             },
             {
               "$type": "Document",
@@ -190,8 +183,7 @@
               "RelativeToolTip": "Repositories\\EventoRepository.cs",
               "ViewState": "AgIAACcAAAAAAAAAAAAAAEUAAAABAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-03-25T17:23:28.103Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-03-25T17:23:28.103Z"
             },
             {
               "$type": "Document",
@@ -203,8 +195,7 @@
               "RelativeToolTip": "Repositories\\ComentarioEventoRepository.cs",
               "ViewState": "AgIAACIAAAAAAAAAAAAQwDAAAAABAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-03-25T17:23:17.612Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-03-25T17:23:17.612Z"
             },
             {
               "$type": "Document",
@@ -216,8 +207,7 @@
               "RelativeToolTip": "Models\\Usuario.cs",
               "ViewState": "AgIAAAUAAAAAAAAAAAAuwCYAAAABAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-03-25T17:22:54.692Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-03-25T17:22:54.692Z"
             },
             {
               "$type": "Document",
@@ -229,8 +219,7 @@
               "RelativeToolTip": "Models\\TipoEvento.cs",
               "ViewState": "AgIAAAsAAAAAAAAAAAAAwBUAAAABAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-03-25T17:22:14.396Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-03-25T17:22:14.396Z"
             },
             {
               "$type": "Document",
@@ -242,8 +231,7 @@
               "RelativeToolTip": "Models\\TipoUsuario.cs",
               "ViewState": "AgIAAAkAAAAAAAAAAAAAABUAAAABAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-03-25T17:21:17.797Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-03-25T17:21:17.797Z"
             },
             {
               "$type": "Document",
@@ -255,8 +243,7 @@
               "RelativeToolTip": "Models\\Presenca.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAABsAAAABAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-03-25T17:20:48.801Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-03-25T17:20:48.801Z"
             },
             {
               "$type": "Document",
@@ -268,8 +255,7 @@
               "RelativeToolTip": "Models\\Instituicao.cs",
               "ViewState": "AgIAAA4AAAAAAAAAAAAAwB0AAAABAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-03-25T17:20:35.626Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-03-25T17:20:35.626Z"
             },
             {
               "$type": "Document",
@@ -281,8 +267,7 @@
               "RelativeToolTip": "Models\\Evento.cs",
               "ViewState": "AgIAAB4AAAAAAAAAAAA9wBQAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-03-25T17:20:22.774Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-03-25T17:20:22.774Z"
             }
           ]
         }
